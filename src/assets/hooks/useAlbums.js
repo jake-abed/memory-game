@@ -1,13 +1,13 @@
-import { addImageURLToAlbums } from './apiCalls';
+import { addImageURLToAlbums } from '../../apiCalls';
 import { useState, useEffect } from 'react';
+import { shuffleArray } from '../../utils/helpers';
 
-export function useAlbums(albumList) {
-    const [difficulty, setDifficulty] = useState('easy');
+function useAlbums(albumList, difficulty) {
     const [albums, setAlbums] = useState(null);
 
     useEffect(() => {
         let ignore = false;
-        let albumSubset = albumList.slice(0, difficulty === 'easy' ? 8 : 16);
+        let albumSubset = shuffleArray(albumList).slice(0, difficulty === 'easy' ? 8 : 16);
 
         async function fetchAlbums() {
             const albumData = await addImageURLToAlbums(albumSubset);
@@ -17,7 +17,9 @@ export function useAlbums(albumList) {
         fetchAlbums().catch(err => console.error(err));
 
         return () => { ignore = true };
-    }, [difficulty, albumList]);
+    }, [albumList, difficulty]);
 
-    return [albums, difficulty, setDifficulty];
+    return [albums, setAlbums];
 }
+
+export default useAlbums;
