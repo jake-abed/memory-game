@@ -30,7 +30,11 @@ function App() {
 	return (
 		<>
 			<div>
-				{albums ? albums.map((album) => <img src={album.imageUrl} />) : null}
+				{albums
+					? albums.map((album) => (
+							<img key={album.album} src={album.imageUrl} />
+					  ))
+					: null}
 			</div>
 			<p>{difficulty}</p>
 		</>
