@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
+import { useAlbums } from './useAlbums';
+
+const albumList = [
+	{ artist: 'JPEGMAFIA & Danny Brown', album: 'Scaring the Hoes' },
+	{ artist: 'Sprain', album: 'As Lost Through Collision' },
+	{
+		artist: 'Denzel Curry',
+		album: 'Melt My Eyez, See Your Future',
+	},
+	{ artist: 'Herbie Hancock', album: 'Head Hunters' },
+	{ artist: 'The Mars Volta', album: 'Frances the Mute' },
+	{ artist: 'black midi', album: 'Hellfire' },
+	{ artist: 'The Weeknd', album: 'Dawn FM' },
+	{ artist: 'The Armed', album: 'Only Love' },
+	{ artist: 'Frank Zappa', album: 'Hot Rats' },
+	{ artist: 'Andre 3000', album: 'New Blue Sun' },
+	{ artist: 'Swans', album: 'The Glowing Man' },
+	{ artist: 'Tkay Maidza', album: 'Sweet Justice' },
+	{ artist: 'Sufjan Stevens', album: 'Javelin' },
+	{ artist: 'Danny Brown', album: 'Quaranta' },
+	{ artist: 'Black Country, New Road', album: 'Ants from Up There' },
+	{ artist: 'Bjork', album: 'Volta' },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [albums, difficulty, setDifficulty] = useAlbums(albumList);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	return (
+		<>
+			<div>
+				{albums ? albums.map((album) => <img src={album.imageUrl} />) : null}
+			</div>
+			<p>{difficulty}</p>
+		</>
+	);
 }
 
-export default App
+export default App;
