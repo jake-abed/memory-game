@@ -1,6 +1,5 @@
 import { addImageURLToAlbums } from '../utils/apiCalls.js'
 import { useState, useEffect } from 'react'
-import { shuffleArray } from '../utils/helpers.js'
 
 function useAlbums(albumSubset) {
     const [albums, setAlbums] = useState(null);

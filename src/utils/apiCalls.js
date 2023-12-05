@@ -3,7 +3,7 @@
 const LASTFM_KEY = import.meta.env.VITE_LASTFM_KEY
 
 const grabAlbumImageURL = async (artistName, albumName) => {
-	const reqUrl = `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${LASTFM_KEY}&artist=${artistName}&album=${albumName}&format=json`
+	const reqUrl = `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${LASTFM_KEY}&artist=${artistName}&album=${albumName}&format=json`
 
 	const reqOptions = {
 		method: 'GET',

@@ -27,6 +27,11 @@ const albumList = [
 	{ artist: 'Bjork', album: 'Volta' },
 	{ artist: 'Oneohtrix Point Never', album: 'Again' },
 	{ artist: 'Death Grips', album: 'Year of the Snitch' },
+	{ artist: 'Arca', album: 'Kick ii' },
+	{ artist: 'Janelle Monae', album: 'Dirty Computer' },
+	{ artist: 'Timber Timbre', album: 'Sincerely, Future Pollution' },
+	{ artist: 'Daughters', album: 'Canada Songs' },
+	{ artist: 'clipping.', album: 'Visions of Bodies Being Burned' },
 ];
 
 function App() {
