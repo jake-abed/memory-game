@@ -2,12 +2,12 @@ import { addImageURLToAlbums } from '../utils/apiCalls.js'
 import { useState, useEffect } from 'react'
 import { shuffleArray } from '../utils/helpers.js'
 
-function useAlbums(albumList, difficulty, setLoading) {
-    const [albums, setAlbums] = useState(null)
+function useAlbums(albumSubset) {
+    const [albums, setAlbums] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         let ignore = false
-        const albumSubset = shuffleArray(albumList).slice(0, 6)
 
         async function fetchAlbums() {
             const albumData = await addImageURLToAlbums(albumSubset)
@@ -16,12 +16,12 @@ function useAlbums(albumList, difficulty, setLoading) {
 
         fetchAlbums().catch(err => console.error(err))
 
-        setLoading(false)
+        setTimeout(() => setLoading(false), 1000);
 
         return () => { ignore = true }
-    }, [albumList, difficulty])
+    }, [albumSubset])
 
-    return [albums, setAlbums]
+    return [albums, loading, setLoading]
 }
 
 export default useAlbums

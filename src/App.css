@@ -1,4 +1,7 @@
 #root {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
 	margin: 0 auto;
 	padding: 2rem;
 	text-align: center;
@@ -41,15 +44,23 @@ div.header {
 	flex-direction: row;
 	flex-wrap: wrap;
 	gap: 2rem;
+	min-height: 0vh;
 	padding: 0 2rem;
+	transition: opacity 0.5s;
+	opacity: 1;
 }
 
-.album-wrapper > img {
+.album-wrapper.loading {
+	opacity: 0;
+}
+
+.album-wrapper > .album,
+.album > img {
 	flex: 0 1 auto;
+	min-width: 75px;
 	max-width: 25dvw;
-	filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.5));
 }
 
-.album-wrapper > img:hover {
-	filter: drop-shadow(0 0 0.75rem rgba(255, 255, 255, 0.5));
+.album > img {
+	filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.5));
 }

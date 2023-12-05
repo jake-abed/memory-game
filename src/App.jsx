@@ -1,7 +1,7 @@
 import './App.css';
+import { useState } from 'react';
 import useAlbums from './hooks/useAlbums';
 import useGameState from './hooks/useGameState';
-import useLoading from './hooks/useLoading';
 import { shuffleArray } from './utils/helpers';
 
 const albumList = [
@@ -30,9 +30,62 @@ const albumList = [
 ];
 
 function App() {
-	const [loading, setLoading] = useLoading(true);
+	const [shuffledAlbums, setShuffledAlbums] = useState(
+		shuffleArray(albumList).slice(0, 6)
+	);
 	const [gameState, setGamestate] = useGameState();
-	const [albums] = useAlbums(albumList, gameState.difficulty, setLoading);
+	const [albums, loading, setLoading] = useAlbums(shuffledAlbums);
+
+	function handleAlbumClick(e) {
+		const album = e.target.alt;
+		console.log(gameState.selectedAlbums);
+		if (gameState.selectedAlbums.includes(album)) {
+			setGamestate({ ...gameState, gameOver: true, message: 'You Lose!' });
+		} else if (gameState.selectedAlbums.length === 5) {
+			setGamestate({
+				...gameState,
+				selectedAlbum: [],
+				currentScore: gameState.currentScore + 1,
+				highScore:
+					gameState.currentScore + 1 > gameState.highScore
+						? gameState.currentScore + 1
+						: gameState.highScore,
+				gameOver: true,
+				message: 'You Win!',
+			});
+		} else {
+			setGamestate({
+				...gameState,
+				selectedAlbums: [...gameState.selectedAlbums, album],
+				currentScore: gameState.currentScore + 1,
+				highScore:
+					gameState.currentScore + 1 > gameState.highScore
+						? gameState.currentScore + 1
+						: gameState.highScore,
+			});
+		}
+	}
+
+	function restartGame() {
+		setLoading(true);
+		setGamestate({
+			...gameState,
+			currentScore: 0,
+			gameOver: false,
+			selectedAlbums: [],
+		});
+		setShuffledAlbums(shuffleArray(albumList).slice(0, 6));
+	}
+
+	function continueGame() {
+		setLoading(true);
+		setGamestate({
+			...gameState,
+			gameOver: false,
+			selectedAlbums: [],
+		});
+		setShuffledAlbums(shuffleArray(albumList).slice(0, 6));
+	}
 
 	return (
 		<>
@@ -41,14 +94,35 @@ function App() {
 					<h1>LOADING</h1>
 				</div>
 			) : null}
+			{gameState.gameOver ? (
+				<div id='loading-screen'>
+					<h1>{gameState.message}</h1>
+					{gameState.message === 'You Lose!' ? (
+						<div className='button-wrapper'>
+							<button onClick={restartGame}>RESTART</button>
+						</div>
+					) : (
+						<div className='button-wrapper'>
+							<button onClick={continueGame}>CONTINUE STREAK</button>
+							<button onClick={restartGame}>NEXT ROUND</button>
+						</div>
+					)}
+				</div>
+			) : null}
 			<div className='background'></div>
 			<div className='header'>
 				<h1>Memories of Music</h1>
 			</div>
-			<div className='album-wrapper'>
+			<div className={'album-wrapper ' + (loading ? 'loading' : '')}>
 				{albums
 					? shuffleArray(albums).map((album) => (
-							<img key={album.album} src={album.imageUrl} />
+							<div className='album' key={album.album}>
+								<img
+									src={album.imageUrl}
+									alt={album.album + ' by ' + album.artist}
+									onClick={handleAlbumClick}
+								/>
+							</div>
 					  ))
 					: null}
 			</div>

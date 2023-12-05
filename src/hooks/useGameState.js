@@ -5,10 +5,8 @@ export default function useGameState() {
     currentScore: 0,
     highScore: 0,
     gameOver: false,
-    selectedAlbums: new Map()
+    selectedAlbums: [],
   })
-
-  console.log(gameState)
 
   return [gameState, setGameState]
 };
