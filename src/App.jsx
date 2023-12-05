@@ -126,7 +126,7 @@ function App() {
 					  ))
 					: null}
 			</div>
-			<p>
+			<p className='score-info'>
 				{'Current Score: ' +
 					gameState.currentScore +
 					' | Hi-Score: ' +
