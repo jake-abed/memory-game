@@ -1,6 +1,8 @@
 import './App.css';
-import useAlbums from './assets/hooks/useAlbums';
-import useGameState from './assets/hooks/useGameState';
+import useAlbums from './hooks/useAlbums';
+import useGameState from './hooks/useGameState';
+import useLoading from './hooks/useLoading';
+import { shuffleArray } from './utils/helpers';
 
 const albumList = [
 	{ artist: 'JPEGMAFIA & Danny Brown', album: 'Scaring the Hoes' },
@@ -28,19 +30,34 @@ const albumList = [
 ];
 
 function App() {
+	const [loading, setLoading] = useLoading(true);
 	const [gameState, setGamestate] = useGameState();
-	const [albums] = useAlbums(albumList, gameState.difficulty);
+	const [albums] = useAlbums(albumList, gameState.difficulty, setLoading);
 
 	return (
 		<>
-			<div>
+			{loading ? (
+				<div id='loading-screen'>
+					<h1>LOADING</h1>
+				</div>
+			) : null}
+			<div className='background'></div>
+			<div className='header'>
+				<h1>Memories of Music</h1>
+			</div>
+			<div className='album-wrapper'>
 				{albums
-					? albums.map((album) => (
+					? shuffleArray(albums).map((album) => (
 							<img key={album.album} src={album.imageUrl} />
 					  ))
 					: null}
 			</div>
-			<p>{gameState.difficulty}</p>
+			<p>
+				{'Current Score: ' +
+					gameState.currentScore +
+					' | Hi-Score: ' +
+					gameState.highScore}
+			</p>
 		</>
 	);
 }

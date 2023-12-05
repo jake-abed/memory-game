@@ -1,21 +1,55 @@
 #root {
-	max-width: 1280px;
 	margin: 0 auto;
 	padding: 2rem;
 	text-align: center;
 }
 
-.logo {
-	height: 6em;
-	padding: 1.5em;
-	will-change: filter;
-	transition: filter 300ms;
+div.background {
+	background-color: #242424;
+	position: absolute;
+	top: min(32px, 5dvw);
+	left: min(32px, 5dvw);
+	right: min(32px, 5dvw);
+	bottom: min(32px, 5dvw);
+	z-index: -1;
 }
 
-.card {
-	padding: 2em;
+div.header {
+	background: linear-gradient(
+		305deg,
+		rgba(112, 44, 175, 1) 0%,
+		rgb(81, 32, 172) 25%,
+		rgba(108, 5, 223, 1) 52%,
+		rgba(87, 48, 156, 1) 76%,
+		rgba(71, 31, 128, 1) 99%
+	);
+	width: 175px;
+	height: 175px;
+	padding: 0.5rem;
+	margin: 1rem auto;
+	margin-bottom: 4rem;
+	border-radius: 2rem;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	vertical-align: middle;
 }
 
-.read-the-docs {
-	color: #888;
+.album-wrapper {
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 2rem;
+	padding: 0 2rem;
+}
+
+.album-wrapper > img {
+	flex: 0 1 auto;
+	max-width: 25dvw;
+	filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.5));
+}
+
+.album-wrapper > img:hover {
+	filter: drop-shadow(0 0 0.75rem rgba(255, 255, 255, 0.5));
 }
