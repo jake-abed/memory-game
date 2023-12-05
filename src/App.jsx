@@ -30,8 +30,12 @@ const albumList = [
 	{ artist: 'Arca', album: 'Kick ii' },
 	{ artist: 'Janelle Monae', album: 'Dirty Computer' },
 	{ artist: 'Timber Timbre', album: 'Sincerely, Future Pollution' },
-	{ artist: 'Daughters', album: 'Canada Songs' },
+	{ artist: 'Daughters', album: 'Hell Songs' },
 	{ artist: 'clipping.', album: 'Visions of Bodies Being Burned' },
+	{ artist: 'Outkast', album: 'Aquemini' },
+	{ artist: 'The Avalanches', album: 'Wildflower' },
+	{ artist: 'Battles', album: 'La Di Da Di' },
+	{ artist: 'The Roots', album: 'Game Theory' },
 ];
 
 function App() {

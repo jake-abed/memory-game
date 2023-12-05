@@ -70,3 +70,21 @@ div.header {
 	font-size: 1.4em;
 	font-weight: 600;
 }
+
+.button-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1rem;
+}
+
+@media screen and (max-width: 450px) {
+	div.header {
+		width: 100px;
+		height: 100px;
+	}
+
+	div.header > h1 {
+		font-size: 2rem;
+	}
+}
