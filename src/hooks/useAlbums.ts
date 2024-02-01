@@ -1,7 +1,8 @@
 import { addImageURLToAlbums } from '../utils/apiCalls.js'
 import { useState, useEffect } from 'react'
+import { Album } from '../utils/types.ts'
 
-function useAlbums(albumSubset) {
+function useAlbums(albumSubset: Array<Album>) {
     const [albums, setAlbums] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -9,7 +10,8 @@ function useAlbums(albumSubset) {
         let ignore = false
 
         async function fetchAlbums() {
-            const albumData = await addImageURLToAlbums(albumSubset)
+            const albumData = await addImageURLToAlbums(albumSubset) as Array<Album>
+            //@ts-ignore
             if (!ignore) setAlbums(albumData)
         }
 
