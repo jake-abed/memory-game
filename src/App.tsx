@@ -3,7 +3,7 @@ import { useState } from 'react';
 import useAlbums from './hooks/useAlbums';
 import useGameState from './hooks/useGameState';
 import { shuffleArray } from './utils/helpers';
-import { Album, GameState } from './utils/types';
+import { Album } from './utils/types';
 
 const albumList: Array<Album> = [
 	{ artist: 'JPEGMAFIA & Danny Brown', album: 'Scaring the Hoes' },
