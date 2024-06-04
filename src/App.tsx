@@ -3,8 +3,9 @@ import { useState } from 'react';
 import useAlbums from './hooks/useAlbums';
 import useGameState from './hooks/useGameState';
 import { shuffleArray } from './utils/helpers';
+import { Album, GameState } from './utils/types';
 
-const albumList = [
+const albumList: Array<Album> = [
 	{ artist: 'JPEGMAFIA & Danny Brown', album: 'Scaring the Hoes' },
 	{ artist: 'Sprain', album: 'As Lost Through Collision' },
 	{
@@ -39,21 +40,21 @@ const albumList = [
 ];
 
 function App() {
-	const [shuffledAlbums, setShuffledAlbums] = useState(
-		shuffleArray(albumList).slice(0, 6)
+	const [shuffledAlbums, setShuffledAlbums] = useState<Array<Album>>(
+		shuffleArray(albumList).slice(0, 6) as Array<Album>
 	);
 	const [gameState, setGamestate] = useGameState();
 	const [albums, loading, setLoading] = useAlbums(shuffledAlbums);
 
-	function handleAlbumClick(e) {
-		const album = e.target.alt;
-		console.log(gameState.selectedAlbums);
+	function handleAlbumClick(e: React.MouseEvent<HTMLImageElement>) {
+		const target = e.target as HTMLImageElement;
+		const album = target.alt;
 		if (gameState.selectedAlbums.includes(album)) {
 			setGamestate({ ...gameState, gameOver: true, message: 'You Lose!' });
 		} else if (gameState.selectedAlbums.length === 5) {
 			setGamestate({
 				...gameState,
-				selectedAlbum: [],
+				selectedAlbums: [],
 				currentScore: gameState.currentScore + 1,
 				highScore:
 					gameState.currentScore + 1 > gameState.highScore
@@ -83,7 +84,7 @@ function App() {
 			gameOver: false,
 			selectedAlbums: [],
 		});
-		setShuffledAlbums(shuffleArray(albumList).slice(0, 6));
+		setShuffledAlbums(shuffleArray(albumList).slice(0, 6) as Array<Album>);
 	}
 
 	function continueGame() {
@@ -93,7 +94,7 @@ function App() {
 			gameOver: false,
 			selectedAlbums: [],
 		});
-		setShuffledAlbums(shuffleArray(albumList).slice(0, 6));
+		setShuffledAlbums(shuffleArray(albumList).slice(0, 6) as Array<Album>);
 	}
 
 	return (
@@ -123,8 +124,9 @@ function App() {
 				<h1>Memories of Music</h1>
 			</div>
 			<div className={'album-wrapper ' + (loading ? 'loading' : '')}>
-				{albums
-					? shuffleArray(albums).map((album) => (
+				{albums && albums !== null
+					? //@ts-ignore
+					  shuffleArray(albums).map((album: Album) => (
 							<div className='album' key={album.album}>
 								<img
 									src={album.imageUrl}
